@@ -24,6 +24,8 @@
       }
       h1 {
         color: #178a24;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
       }
       .word {
         font-size: 1rem;
@@ -59,20 +61,29 @@
         justify-content: center;
         align-items: center;
         color: #fff;
+        display: none;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Аллаһтың көркем есімдері:</h1>
+      <h1>Аллаһтың көркем есімдері</h1>
       <div class="word" id="word"></div>
       <div class="buttons">
-        <button onclick="previousWord()">Өмнөх</button>
-        <button onclick="showWord()">Дараах</button>
+        <button id="btn" onclick="previousWord()" style="display: none">
+          Алдыңғы
+        </button>
+        <button id="next" onclick="showWord()" style="display: none">
+          Келесі
+        </button>
+        <!-- <div id="text" class="text" style="padding: 0px 20px 20px 20px"></div> -->
+        <button id="start" onclick="showNames()">
+          Сәлем, Аллаһтың көркем есімдерімен танысып, зікір еткін келсе бас
+        </button>
       </div>
-
       <div id="count" class="count" onclick="updateCount()">0</div>
     </div>
+    <div class="footer"></div>
 
     <script>
       const words = [
@@ -589,6 +600,8 @@
                <br> <br>
                ${word.descriptions}`;
           currentIndex++;
+          showCount();
+          document.getElementById("count").style.display = "flex";
         }
       }
 
@@ -599,17 +612,25 @@
         } else if (currentIndex === 1) {
           currentIndex = 0;
           showWord();
+          showCount();
         }
       }
 
+      count = 0;
       function updateCount() {
-        document.getElementById("count").textContent = `${(currentIndex =
-          currentIndex + 1)}`;
+        document.getElementById("count").textContent = `${(count = count + 1)}`;
       }
 
-      function incrementCount() {
-        currentIndex = Math.min(currentIndex + 1, words.length - 1);
-        updateCount();
+      function showCount() {
+        count = 0;
+        document.getElementById("count").textContent = `${0}`;
+      }
+
+      function showNames() {
+        document.getElementById("start").style.display = "none";
+        document.getElementById("next").style.display = "inline-block";
+        document.getElementById("btn").style.display = "inline-block";
+        showWord();
       }
     </script>
   </body>
